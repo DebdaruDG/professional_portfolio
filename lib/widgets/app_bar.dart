@@ -1,47 +1,53 @@
 import 'package:flutter/material.dart';
 
-import '../colors/color_picker.dart';
-
 class PortfolioAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String currentPage;
-  const PortfolioAppBar({super.key, required this.currentPage});
+  final bool isVisible;
+  const PortfolioAppBar({
+    super.key,
+    required this.currentPage,
+    required this.isVisible,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      title: const Text(
-        'Debdaru Dasgupta',
-        style: TextStyle(fontWeight: FontWeight.bold),
+    return AnimatedOpacity(
+      opacity: isVisible ? 1.0 : 0.0,
+      duration: const Duration(milliseconds: 300),
+      child: AppBar(
+        title: const Text(
+          'Debdaru Dasgupta',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Theme.of(context).primaryColor,
+        actions: [
+          _NavItem(
+            title: 'Home',
+            isActive: currentPage == 'home',
+            onTap: () => Navigator.pushNamed(context, '/home'),
+          ),
+          _NavItem(
+            title: 'About',
+            isActive: currentPage == 'about',
+            onTap: () => Navigator.pushNamed(context, '/about'),
+          ),
+          _NavItem(
+            title: 'Skills',
+            isActive: currentPage == 'skills',
+            onTap: () => Navigator.pushNamed(context, '/skills'),
+          ),
+          _NavItem(
+            title: 'Projects',
+            isActive: currentPage == 'projects',
+            onTap: () => Navigator.pushNamed(context, '/projects'),
+          ),
+          _NavItem(
+            title: 'Contact',
+            isActive: currentPage == 'contact',
+            onTap: () => Navigator.pushNamed(context, '/contact'),
+          ),
+        ],
       ),
-      backgroundColor: ColorPicker.cyberCard,
-      actions: [
-        _NavItem(
-          title: 'Home',
-          isActive: currentPage == 'home',
-          onTap: () => Navigator.pushNamed(context, '/home'),
-        ),
-        _NavItem(
-          title: 'About',
-          isActive: currentPage == 'about',
-          onTap: () => Navigator.pushNamed(context, '/about'),
-        ),
-        _NavItem(
-          title: 'Skills',
-          isActive: currentPage == 'skills',
-          onTap: () => Navigator.pushNamed(context, '/skills'),
-        ),
-        _NavItem(
-          title: 'Projects',
-          isActive: currentPage == 'projects',
-          onTap: () => Navigator.pushNamed(context, '/projects'),
-        ),
-        _NavItem(
-          title: 'Contact',
-          isActive: currentPage == 'contact',
-          onTap: () => Navigator.pushNamed(context, '/contact'),
-        ),
-      ],
     );
   }
 

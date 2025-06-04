@@ -1,0 +1,14 @@
+                                      -: Portfolio Design :- 
+
+Refer to the following websites :- 
+
+1. https://www.wearedigitaledge.co.uk/projects - Focus on the video which is being played, the content and CTA's being used in the designs.
+
+2. https://www.olyablack.com/portfolio - 
+
+a. Focus on the color combination being used.
+b. Focus on the text on the top left - OLYA BLACK - How the surname letters are mirrored.
+c. Focus on the animation - Left to right slide ease-out fade-in being used when we hover upon the individual blocks.
+d. Focus on the footers being used in the bottom-most part of the screen.
+
+3. 

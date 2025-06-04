@@ -1,0 +1,74 @@
+{
+  "basics": {
+    "name": "Debdaru Dasgupta",
+    "location": "Agartala, India",
+    "email": "debdarudasgupta@outlook.com",
+    "phone": "+91-8787588495",
+    "github": "https://github.com/Debdaru07/Debdaru07",
+    "linkedin": "https://www.linkedin.com/in/debdaru-dasgupta-a64323197/",
+    "portfolio": "https://debs-portfolio-1099.netlify.app"
+  },
+  "summary": "Creative and results-driven Software Developer with 3+ years of experience in full-stack development, specializing in Flutter, AI-powered applications, and scalable UI systems. Proven success in leading mobile/web products, integrating OpenAI APIs, and mentoring developers.",
+  "skills": {
+    "languages": ["Dart", "Python", "JavaScript", "TypeScript", "C"],
+    "databases": ["PostgreSQL", "MongoDB", "SQLite", "ChromaDB"],
+    "frameworks": ["Flutter", "Angular", "React", "Node.js", "Express.js"],
+    "concepts": ["REST", "GraphQL", "WebSockets", "Clean Architecture"],
+    "tools": ["Azure DevOps", "Firebase", "Git", "Docker", "Figma"],
+    "practices": ["Agile", "CI/CD", "TDD"]
+  },
+  "experience": [
+    {
+      "title": "Software Developer",
+      "company": "Tri Color Initiatives",
+      "location": "Panchkula, Haryana",
+      "startDate": "March 2025",
+      "endDate": "Present",
+      "highlights": [
+        "Led development of 5+ AI MVPs with OpenAI and vector databases.",
+        "Built a full AI language tutor using FlutterFlow and Firebase.",
+        "Enhanced agile task automation flows for increased efficiency.",
+        "Designed reusable UI systems for smart assistant platforms."
+      ]
+    },
+    {
+      "title": "Software Developer",
+      "company": "Agelix-Consulting Pvt. Ltd.",
+      "location": "Gurgaon, Haryana",
+      "startDate": "August 2022",
+      "endDate": "February 2025",
+      "highlights": [
+        "Built and deployed Flutter mobile apps to Play Store & App Store.",
+        "Integrated GraphQL/REST APIs for real-time and modular comms.",
+        "Developed legal mediation web platform for government litigators.",
+        "Implemented CI/CD with Azure DevOps for automation.",
+        "Converted Figma designs into clean architecture UI with TDD."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "NewsForg",
+      "url": "https://newsforg.netlify.app/",
+      "description": "Single-handedly built the CMS WebApp; backend in Node.js."
+    },
+    {
+      "name": "Portfolio Website",
+      "url": "https://debs-portfolio-1099.netlify.app/",
+      "description": "Features complete achievements, work history, and projects."
+    },
+    {
+      "name": "Let’s Chat",
+      "url": "https://realtime-chat-application-kh5x.onrender.com",
+      "description": "WebSocket-based real-time chat app with image sharing."
+    }
+  ],
+  "education": {
+    "degree": "Bachelor of Technology",
+    "field": "Electronics and Telecommunication Engineering",
+    "institution": "Kalinga Institute of Industrial Technology, Bhubaneswar – Odisha",
+    "year": "2018 – 2022",
+    "cgpa": "8.0",
+    "coursework": ["Data Structures", "DBMS", "Networking"]
+  }
+}

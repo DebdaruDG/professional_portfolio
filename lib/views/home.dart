@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   bool _appBarVisible = true;
   String _currentSection = 'home';
   Timer? _hideAppBarTimer;
-  Map<String, bool> _sectionVisibility = {'profile': false};
+  final Map<String, bool> _sectionVisibility = {'profile': false};
 
   @override
   void initState() {

@@ -15,11 +15,12 @@ class PortfolioAppBar extends StatelessWidget implements PreferredSizeWidget {
       opacity: isVisible ? 1.0 : 0.0,
       duration: const Duration(milliseconds: 300),
       child: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
           'Debdaru Dasgupta',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).cardColor,
         actions: [
           _NavItem(
             title: 'Home',

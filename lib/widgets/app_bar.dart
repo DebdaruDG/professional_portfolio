@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
 class PortfolioAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String currentPage;
+  final String currentSection;
   final bool isVisible;
+  final Map<String, GlobalKey> sectionKeys;
+
   const PortfolioAppBar({
     super.key,
-    required this.currentPage,
+    required this.currentSection,
     required this.isVisible,
+    required this.sectionKeys,
   });
 
   @override
@@ -15,7 +18,6 @@ class PortfolioAppBar extends StatelessWidget implements PreferredSizeWidget {
       opacity: isVisible ? 1.0 : 0.0,
       duration: const Duration(milliseconds: 300),
       child: AppBar(
-        automaticallyImplyLeading: false,
         title: const Text(
           'Debdaru Dasgupta',
           style: TextStyle(fontWeight: FontWeight.bold),
@@ -24,28 +26,28 @@ class PortfolioAppBar extends StatelessWidget implements PreferredSizeWidget {
         actions: [
           _NavItem(
             title: 'Home',
-            isActive: currentPage == 'home',
-            onTap: () => Navigator.pushNamed(context, '/home'),
+            isActive: currentSection == 'home',
+            sectionKey: sectionKeys['home']!,
           ),
           _NavItem(
             title: 'About',
-            isActive: currentPage == 'about',
-            onTap: () => Navigator.pushNamed(context, '/about'),
+            isActive: currentSection == 'about',
+            sectionKey: sectionKeys['about']!,
           ),
           _NavItem(
             title: 'Skills',
-            isActive: currentPage == 'skills',
-            onTap: () => Navigator.pushNamed(context, '/skills'),
+            isActive: currentSection == 'skills',
+            sectionKey: sectionKeys['skills']!,
           ),
           _NavItem(
             title: 'Projects',
-            isActive: currentPage == 'projects',
-            onTap: () => Navigator.pushNamed(context, '/projects'),
+            isActive: currentSection == 'projects',
+            sectionKey: sectionKeys['projects']!,
           ),
           _NavItem(
             title: 'Contact',
-            isActive: currentPage == 'contact',
-            onTap: () => Navigator.pushNamed(context, '/contact'),
+            isActive: currentSection == 'contact',
+            sectionKey: sectionKeys['contact']!,
           ),
         ],
       ),
@@ -59,12 +61,12 @@ class PortfolioAppBar extends StatelessWidget implements PreferredSizeWidget {
 class _NavItem extends StatelessWidget {
   final String title;
   final bool isActive;
-  final VoidCallback onTap;
+  final GlobalKey sectionKey;
 
   const _NavItem({
     required this.title,
     required this.isActive,
-    required this.onTap,
+    required this.sectionKey,
   });
 
   @override
@@ -72,7 +74,17 @@ class _NavItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: TextButton(
-        onPressed: onTap,
+        onPressed: () {
+          final sectionContext = sectionKey.currentContext;
+          if (sectionContext != null) {
+            Scrollable.ensureVisible(
+              sectionContext,
+              alignment: 0.0,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+            );
+          }
+        },
         child: Text(
           title,
           style: TextStyle(

@@ -7,6 +7,7 @@ import 'services/load_json.dart';
 import 'views/about.dart';
 import 'views/contact.dart';
 import 'views/home.dart';
+import 'views/main_page.dart';
 import 'views/projects.dart';
 import 'views/skills.dart';
 
@@ -44,15 +45,16 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: "Debdaru's Portfolio",
             theme: themeProvider.theme,
-            initialRoute: '/home',
+            initialRoute: '/main',
             routes: {
-              '/home': (context) => HomePage(portfolio: snapshot.data!),
-              '/about': (context) => AboutPage(portfolio: snapshot.data!),
-              '/skills': (context) => SkillsPage(portfolio: snapshot.data!),
-              '/projects': (context) => ProjectsPage(portfolio: snapshot.data!),
-              '/contact': (context) => ContactPage(portfolio: snapshot.data!),
+              '/main': (context) => MainPage(portfolio: snapshot.data!),
+              // '/home': (context) => HomePage(portfolio: snapshot.data!),
+              // '/about': (context) => AboutPage(portfolio: snapshot.data!),
+              // '/skills': (context) => SkillsPage(portfolio: snapshot.data!),
+              // '/projects': (context) => ProjectsPage(portfolio: snapshot.data!),
+              // '/contact': (context) => ContactPage(portfolio: snapshot.data!),
             },
-            home: HomePage(portfolio: snapshot.data!),
+            home: MainPage(portfolio: snapshot.data!),
           );
         }
       },

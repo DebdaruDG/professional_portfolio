@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../colors/color_picker.dart';
 import '../models/portfolio_model.dart';
+import '../models/skills_model.dart';
 import '../widgets/project_card.dart';
 
 class SkillsSection extends StatefulWidget {
@@ -44,6 +45,7 @@ class _SkillsSectionState extends State<SkillsSection> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Wrap(
                 alignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.center,
                 spacing: 16.0,
                 runSpacing: 16.0,
                 children: [
@@ -102,9 +104,18 @@ class PortfolioCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Fixed width: 90% of screen width on mobile, max 300px for web
     final screenWidth = MediaQuery.of(context).size.width;
-    final cardWidth = screenWidth > 600 ? 300.0 : screenWidth * 0.9;
+    late final int itemsPerRow;
+
+    if (screenWidth > 1024) {
+      itemsPerRow = 3;
+    } else if (screenWidth > 600) {
+      itemsPerRow = 2;
+    } else {
+      itemsPerRow = 1;
+    }
+
+    final double cardWidth = (screenWidth / itemsPerRow);
     return AnimatedOpacity(
       opacity: isVisible ? 1.0 : 0.0,
       duration: const Duration(milliseconds: 500),

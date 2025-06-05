@@ -247,15 +247,15 @@ class PortfolioCard extends StatelessWidget {
                 runSpacing: 16.0,
                 children:
                     skills.map((skill) {
-                      return Column(
+                      return Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(
                             _getIconForSkill(skill),
-                            color: ColorPicker.cyberYellow,
-                            size: 40,
+                            // color: ColorPicker.cyberYellow,
+                            size: 20,
                           ),
-                          const SizedBox(height: 8),
+                          const SizedBox(width: 4),
                           Text(
                             skill,
                             textAlign: TextAlign.center,

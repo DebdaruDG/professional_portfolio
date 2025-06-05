@@ -126,7 +126,7 @@ class PortfolioCard extends StatelessWidget {
         (screenWidth - 32) / itemsPerRow; // Adjusted for padding
     return AnimatedOpacity(
       opacity: isVisible ? 1.0 : 0.0,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 300),
       child: Container(
         width: cardWidth,
         decoration: BoxDecoration(

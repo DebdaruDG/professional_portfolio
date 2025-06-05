@@ -36,7 +36,7 @@ class _HomeSectionState extends State<HomeSection> {
       onVisibilityChanged: widget.onVisibilityChanged,
       child: AnimatedOpacity(
         opacity: widget.isVisible ? 1.0 : 0.0,
-        duration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 300),
         child: Container(
           padding: const EdgeInsets.all(16.0),
           constraints: BoxConstraints(

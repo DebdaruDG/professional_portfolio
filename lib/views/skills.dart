@@ -252,7 +252,7 @@ class PortfolioCard extends StatelessWidget {
                         children: [
                           Icon(
                             _getIconForSkill(skill),
-                            // color: ColorPicker.cyberYellow,
+                            color: ColorPicker.cyberYellow,
                             size: 20,
                           ),
                           const SizedBox(width: 4),

@@ -43,41 +43,50 @@ class _HomeSectionState extends State<HomeSection> {
           constraints: BoxConstraints(
             minHeight: MediaQuery.of(context).size.height - kToolbarHeight,
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.6,
+                width: MediaQuery.of(context).size.width * 0.45,
+                height: MediaQuery.of(context).size.height * 0.7,
                 child: ImageSliderScreen(),
               ),
-              const SizedBox(height: 16),
-              Text(
-                widget.portfolio.basics.name,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
+              const SizedBox(width: 16), // Space between slider and text
+              // Expanded to ensure the Column takes the remaining space
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      widget.portfolio.basics.name,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      widget.portfolio.basics.location,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      widget.portfolio.summary,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: widget.onLearnMoreTap,
+                      child: const Text('Learn More About Me'),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 16),
-              Text(
-                widget.portfolio.basics.location,
-                textAlign: TextAlign.center,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(color: Colors.grey[600]),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                widget.portfolio.summary,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: widget.onLearnMoreTap,
-                child: const Text('Learn More About Me'),
-              ),
-              const SizedBox(height: 32),
             ],
           ),
         ),

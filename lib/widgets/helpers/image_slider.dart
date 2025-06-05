@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../colors/color_picker.dart';
 import '../../constants/image_urls.dart';
 
 class ImageSliderScreen extends StatefulWidget {
@@ -93,29 +96,41 @@ class _ImageSliderScreenState extends State<ImageSliderScreen> {
               ),
               // Navigation buttons
               Positioned(
-                left: 8,
+                left: 12,
                 top: 0,
                 bottom: 0,
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                    size: 30,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(30), // Rounded corners
                   ),
-                  onPressed: _previousPage,
+                  child: IconButton(
+                    icon: const Icon(
+                      CupertinoIcons.arrow_left_circle,
+                      color: ColorPicker.cyberYellow,
+                      size: 30,
+                    ),
+                    onPressed: _previousPage,
+                  ),
                 ),
               ),
               Positioned(
-                right: 8,
+                right: 12,
                 top: 0,
                 bottom: 0,
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_forward,
-                    color: Colors.white,
-                    size: 30,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(30), // Rounded corners
                   ),
-                  onPressed: _nextPage,
+                  child: IconButton(
+                    icon: const Icon(
+                      CupertinoIcons.arrow_right_circle,
+                      color: ColorPicker.cyberYellow,
+                      size: 30,
+                    ),
+                    onPressed: _nextPage,
+                  ),
                 ),
               ),
             ],

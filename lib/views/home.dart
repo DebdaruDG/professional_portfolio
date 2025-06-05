@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../models/portfolio_model.dart';
+import '../widgets/helpers/image_slider.dart';
 
 class HomeSection extends StatefulWidget {
   final GlobalKey sectionKey;
@@ -45,13 +46,9 @@ class _HomeSectionState extends State<HomeSection> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              CircleAvatar(
-                radius: 60,
-                backgroundColor: Theme.of(context).primaryColor,
-                child: Text(
-                  widget.portfolio.basics.name[0],
-                  style: const TextStyle(fontSize: 40, color: Colors.white),
-                ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.6,
+                child: ImageSliderScreen(),
               ),
               const SizedBox(height: 16),
               Text(

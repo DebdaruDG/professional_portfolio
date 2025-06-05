@@ -14,46 +14,117 @@ class _ImageSliderScreenState extends State<ImageSliderScreen> {
   int _currentIndex = 0;
 
   @override
+  void initState() {
+    super.initState();
+    debugPrint(
+      'ImageSliderScreen: Images loaded: ${AssetImageUrls.allImages.length}',
+    );
+  }
+
+  @override
   void dispose() {
     _pageController.dispose();
     super.dispose();
+  }
+
+  void _nextPage() {
+    if (_currentIndex < AssetImageUrls.allImages.length - 1) {
+      _pageController.animateToPage(
+        _currentIndex + 1,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  void _previousPage() {
+    if (_currentIndex > 0) {
+      _pageController.animateToPage(
+        _currentIndex - 1,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final imageList = AssetImageUrls.allImages;
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Trip Memories'), centerTitle: true),
-      body: Column(
-        children: [
-          Expanded(
-            child: PageView.builder(
-              controller: _pageController,
-              itemCount: imageList.length,
-              onPageChanged: (index) {
-                setState(() => _currentIndex = index);
-              },
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.asset(
-                      imageList[index],
-                      fit: BoxFit.cover,
-                      width: double.infinity,
+    if (imageList.isEmpty) {
+      debugPrint('ImageSliderScreen: No images available');
+      return const Center(child: Text('No images to display'));
+    }
+
+    return Column(
+      children: [
+        Expanded(
+          child: Stack(
+            children: [
+              PageView.builder(
+                controller: _pageController,
+                itemCount: imageList.length,
+                onPageChanged: (index) {
+                  setState(() => _currentIndex = index);
+                  debugPrint('ImageSliderScreen: Current index: $index');
+                },
+                physics:
+                    const AlwaysScrollableScrollPhysics(), // Ensure swiping works
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset(
+                        imageList[index],
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: double.infinity,
+                        errorBuilder: (context, error, stackTrace) {
+                          debugPrint('Image error: $error');
+                          return const Center(
+                            child: Text('Image failed to load'),
+                          );
+                        },
+                      ),
                     ),
+                  );
+                },
+              ),
+              // Navigation buttons
+              Positioned(
+                left: 8,
+                top: 0,
+                bottom: 0,
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                    size: 30,
                   ),
-                );
-              },
-            ),
+                  onPressed: _previousPage,
+                ),
+              ),
+              Positioned(
+                right: 8,
+                top: 0,
+                bottom: 0,
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_forward,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  onPressed: _nextPage,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 12),
-          _buildPageIndicator(imageList.length),
-          const SizedBox(height: 24),
-        ],
-      ),
+        ),
+        const SizedBox(height: 12),
+        _buildPageIndicator(imageList.length),
+        const SizedBox(height: 12),
+      ],
     );
   }
 

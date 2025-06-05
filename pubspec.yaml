@@ -17,6 +17,7 @@ dependencies:
   visibility_detector: ^0.4.0
   flutter_devicon: ^1.0.0
   font_awesome_flutter: ^10.7.0
+  flutter_staggered_animations: ^1.1.1
 
 dev_dependencies:
   flutter_test:

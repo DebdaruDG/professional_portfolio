@@ -3,7 +3,7 @@ import 'package:visibility_detector/visibility_detector.dart';
 import '../models/portfolio_model.dart';
 import '../widgets/project_card.dart';
 
-class ProjectsSection extends StatelessWidget {
+class ProjectsSection extends StatefulWidget {
   final GlobalKey sectionKey;
   final bool isVisible;
   final Portfolio portfolio;
@@ -18,26 +18,31 @@ class ProjectsSection extends StatelessWidget {
   });
 
   @override
+  State<ProjectsSection> createState() => _ProjectsSectionState();
+}
+
+class _ProjectsSectionState extends State<ProjectsSection> {
+  @override
   Widget build(BuildContext context) {
     return VisibilityDetector(
-      key: sectionKey,
-      onVisibilityChanged: (_) => onVisibilityChanged,
+      key: widget.sectionKey,
+      onVisibilityChanged: (_) => widget.onVisibilityChanged,
       child: AnimatedOpacity(
-        opacity: isVisible ? 1.0 : 0.0,
+        opacity: widget.isVisible ? 1.0 : 0.0,
         duration: const Duration(milliseconds: 500),
         child: Column(
-          key: sectionKey,
+          key: widget.sectionKey,
           children: [
             SectionTitle(
               title: 'Projects',
               sectionKey: 'projects',
-              isVisible: isVisible,
+              isVisible: widget.isVisible,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children:
-                    portfolio.projects
+                    widget.portfolio.projects
                         .asMap()
                         .entries
                         .map(
@@ -46,7 +51,7 @@ class ProjectsSection extends StatelessWidget {
                             description: entry.value.description,
                             items: [entry.value.url],
                             sectionKey: 'project-${entry.key}',
-                            isVisible: isVisible,
+                            isVisible: widget.isVisible,
                           ),
                         )
                         .toList(),

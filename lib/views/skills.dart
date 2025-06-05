@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+import '../colors/color_picker.dart';
 import '../models/portfolio_model.dart';
 import '../widgets/project_card.dart';
 
-class SkillsSection extends StatelessWidget {
+class SkillsSection extends StatefulWidget {
   final GlobalKey sectionKey;
   final bool isVisible;
   final Portfolio portfolio;
@@ -18,61 +19,63 @@ class SkillsSection extends StatelessWidget {
   });
 
   @override
+  State<SkillsSection> createState() => _SkillsSectionState();
+}
+
+class _SkillsSectionState extends State<SkillsSection> {
+  @override
   Widget build(BuildContext context) {
-    final skills = portfolio.skills;
+    final skills = widget.portfolio.skills;
     return VisibilityDetector(
-      key: sectionKey,
-      onVisibilityChanged: (_) => onVisibilityChanged,
+      key: widget.sectionKey,
+      onVisibilityChanged: (_) => widget.onVisibilityChanged,
       child: AnimatedOpacity(
-        opacity: isVisible ? 1.0 : 0.0,
+        opacity: widget.isVisible ? 1.0 : 0.0,
         duration: const Duration(milliseconds: 500),
         child: Column(
-          key: sectionKey,
+          key: widget.sectionKey,
           children: [
             SectionTitle(
               title: 'Skills',
               sectionKey: 'skills',
-              isVisible: isVisible,
+              isVisible: widget.isVisible,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 16.0,
+                runSpacing: 16.0,
                 children: [
-                  InfoCard(
+                  PortfolioCard(
                     title: 'Languages',
-                    items: skills.languages,
-                    sectionKey: 'skills-languages',
-                    isVisible: isVisible,
+                    description: skills.languages.join(', '),
+                    isVisible: widget.isVisible,
                   ),
-                  InfoCard(
+                  PortfolioCard(
                     title: 'Databases',
-                    items: skills.databases,
-                    sectionKey: 'skills-databases',
-                    isVisible: isVisible,
+                    description: skills.databases.join(', '),
+                    isVisible: widget.isVisible,
                   ),
-                  InfoCard(
+                  PortfolioCard(
                     title: 'Frameworks',
-                    items: skills.frameworks,
-                    sectionKey: 'skills-frameworks',
-                    isVisible: isVisible,
+                    description: skills.frameworks.join(', '),
+                    isVisible: widget.isVisible,
                   ),
-                  InfoCard(
+                  PortfolioCard(
                     title: 'Concepts',
-                    items: skills.concepts,
-                    sectionKey: 'skills-concepts',
-                    isVisible: isVisible,
+                    description: skills.concepts.join(', '),
+                    isVisible: widget.isVisible,
                   ),
-                  InfoCard(
+                  PortfolioCard(
                     title: 'Tools',
-                    items: skills.tools,
-                    sectionKey: 'skills-tools',
-                    isVisible: isVisible,
+                    description: skills.tools.join(', '),
+                    isVisible: widget.isVisible,
                   ),
-                  InfoCard(
+                  PortfolioCard(
                     title: 'Practices',
-                    items: skills.practices,
-                    sectionKey: 'skills-practices',
-                    isVisible: isVisible,
+                    description: skills.practices.join(', '),
+                    isVisible: widget.isVisible,
                   ),
                 ],
               ),
@@ -83,4 +86,106 @@ class SkillsSection extends StatelessWidget {
       ),
     );
   }
+}
+
+class PortfolioCard extends StatelessWidget {
+  final String title;
+  final String description;
+  final bool isVisible;
+
+  const PortfolioCard({
+    super.key,
+    required this.title,
+    required this.description,
+    required this.isVisible,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // Fixed width: 90% of screen width on mobile, max 300px for web
+    final screenWidth = MediaQuery.of(context).size.width;
+    final cardWidth = screenWidth > 600 ? 300.0 : screenWidth * 0.9;
+    return AnimatedOpacity(
+      opacity: isVisible ? 1.0 : 0.0,
+      duration: const Duration(milliseconds: 500),
+      child: Container(
+        width: cardWidth,
+        decoration: BoxDecoration(
+          color: Colors.black,
+          border: Border.all(
+            color: ColorPicker.cyberYellow, // Yellow border
+            width: 2.0,
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 16.0,
+              ),
+              child: Text(
+                title.toUpperCase(),
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(height: 32),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: CustomPaint(
+                painter: ZigZagPainter(),
+                child: const SizedBox(width: 40, height: 10),
+              ),
+            ),
+            const SizedBox(height: 32),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 16.0,
+              ),
+              child: Text(
+                description,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Custom Painter for the yellow zigzag divider
+class ZigZagPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint =
+        Paint()
+          ..color = ColorPicker.cyberYellow
+          ..strokeWidth = 2
+          ..style = PaintingStyle.stroke;
+
+    final path = Path();
+    const double step = 5.0;
+    double x = 0.0;
+    bool up = true;
+
+    while (x < size.width) {
+      path.lineTo(x, up ? 0 : size.height);
+      x += step;
+      up = !up;
+    }
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

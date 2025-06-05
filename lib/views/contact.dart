@@ -3,7 +3,7 @@ import 'package:visibility_detector/visibility_detector.dart';
 import '../models/portfolio_model.dart';
 import '../widgets/project_card.dart';
 
-class ContactSection extends StatelessWidget {
+class ContactSection extends StatefulWidget {
   final GlobalKey sectionKey;
   final bool isVisible;
   final Portfolio portfolio;
@@ -18,20 +18,25 @@ class ContactSection extends StatelessWidget {
   });
 
   @override
+  State<ContactSection> createState() => _ContactSectionState();
+}
+
+class _ContactSectionState extends State<ContactSection> {
+  @override
   Widget build(BuildContext context) {
     return VisibilityDetector(
-      key: sectionKey,
-      onVisibilityChanged: (_) => onVisibilityChanged,
+      key: widget.sectionKey,
+      onVisibilityChanged: (_) => widget.onVisibilityChanged,
       child: AnimatedOpacity(
-        opacity: isVisible ? 1.0 : 0.0,
+        opacity: widget.isVisible ? 1.0 : 0.0,
         duration: const Duration(milliseconds: 500),
         child: Column(
-          key: sectionKey,
+          key: widget.sectionKey,
           children: [
             SectionTitle(
               title: 'Contact Me',
               sectionKey: 'contact',
-              isVisible: isVisible,
+              isVisible: widget.isVisible,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -40,22 +45,22 @@ class ContactSection extends StatelessWidget {
                   InfoCard(
                     title: 'Contact Information',
                     items: [
-                      'Email: ${portfolio.basics.email}',
-                      'Phone: ${portfolio.basics.phone}',
-                      'Location: ${portfolio.basics.location}',
+                      'Email: ${widget.portfolio.basics.email}',
+                      'Phone: ${widget.portfolio.basics.phone}',
+                      'Location: ${widget.portfolio.basics.location}',
                     ],
                     sectionKey: 'contact-info',
-                    isVisible: isVisible,
+                    isVisible: widget.isVisible,
                   ),
                   InfoCard(
                     title: 'Connect with Me',
                     items: [
-                      'GitHub: ${portfolio.basics.github}',
-                      'LinkedIn: ${portfolio.basics.linkedin}',
-                      'Portfolio: ${portfolio.basics.portfolio}',
+                      'GitHub: ${widget.portfolio.basics.github}',
+                      'LinkedIn: ${widget.portfolio.basics.linkedin}',
+                      'Portfolio: ${widget.portfolio.basics.portfolio}',
                     ],
                     sectionKey: 'contact-connect',
-                    isVisible: isVisible,
+                    isVisible: widget.isVisible,
                   ),
                 ],
               ),

@@ -15,7 +15,7 @@ class PortfolioAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedOpacity(
-      opacity: isVisible ? 1.0 : 0.0,
+      opacity: isVisible ? 1.0 : 0.3,
       duration: const Duration(milliseconds: 300),
       child: AppBar(
         title: const Text(

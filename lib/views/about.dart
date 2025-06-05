@@ -3,7 +3,7 @@ import 'package:visibility_detector/visibility_detector.dart';
 import '../models/portfolio_model.dart';
 import '../widgets/project_card.dart';
 
-class AboutSection extends StatelessWidget {
+class AboutSection extends StatefulWidget {
   final GlobalKey sectionKey;
   final bool isVisible;
   final Portfolio portfolio;
@@ -18,20 +18,25 @@ class AboutSection extends StatelessWidget {
   });
 
   @override
+  State<AboutSection> createState() => _AboutSectionState();
+}
+
+class _AboutSectionState extends State<AboutSection> {
+  @override
   Widget build(BuildContext context) {
     return VisibilityDetector(
-      key: sectionKey,
-      onVisibilityChanged: (_) => onVisibilityChanged,
+      key: widget.sectionKey,
+      onVisibilityChanged: (_) => widget.onVisibilityChanged,
       child: AnimatedOpacity(
-        opacity: isVisible ? 1.0 : 0.0,
+        opacity: widget.isVisible ? 1.0 : 0.0,
         duration: const Duration(milliseconds: 500),
         child: Column(
-          key: sectionKey,
+          key: widget.sectionKey,
           children: [
             SectionTitle(
               title: 'About Me',
               sectionKey: 'about',
-              isVisible: isVisible,
+              isVisible: widget.isVisible,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -39,21 +44,21 @@ class AboutSection extends StatelessWidget {
                 children: [
                   InfoCard(
                     title: 'Summary',
-                    description: portfolio.summary,
+                    description: widget.portfolio.summary,
                     sectionKey: 'about-summary',
-                    isVisible: isVisible,
+                    isVisible: widget.isVisible,
                   ),
                   InfoCard(
                     title: 'Education',
                     subtitle:
-                        '${portfolio.education.degree} in ${portfolio.education.field}',
+                        '${widget.portfolio.education.degree} in ${widget.portfolio.education.field}',
                     items: [
-                      '${portfolio.education.institution}, ${portfolio.education.year}',
-                      'CGPA: ${portfolio.education.cgpa}',
-                      'Coursework: ${portfolio.education.coursework.join(", ")}',
+                      '${widget.portfolio.education.institution}, ${widget.portfolio.education.year}',
+                      'CGPA: ${widget.portfolio.education.cgpa}',
+                      'Coursework: ${widget.portfolio.education.coursework.join(", ")}',
                     ],
                     sectionKey: 'about-education',
-                    isVisible: isVisible,
+                    isVisible: widget.isVisible,
                   ),
                 ],
               ),

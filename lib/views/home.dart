@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../models/portfolio_model.dart';
 
-class HomeSection extends StatelessWidget {
+class HomeSection extends StatefulWidget {
   final GlobalKey sectionKey;
   final bool isVisible;
   final Function(VisibilityInfo item) onVisibilityChanged;
@@ -19,12 +19,17 @@ class HomeSection extends StatelessWidget {
   });
 
   @override
+  State<HomeSection> createState() => _HomeSectionState();
+}
+
+class _HomeSectionState extends State<HomeSection> {
+  @override
   Widget build(BuildContext context) {
     return VisibilityDetector(
-      key: sectionKey,
-      onVisibilityChanged: (_) => onVisibilityChanged,
+      key: widget.sectionKey,
+      onVisibilityChanged: (_) => widget.onVisibilityChanged,
       child: AnimatedOpacity(
-        opacity: isVisible ? 1.0 : 0.0,
+        opacity: widget.isVisible ? 1.0 : 0.0,
         duration: const Duration(milliseconds: 500),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -34,28 +39,28 @@ class HomeSection extends StatelessWidget {
                 radius: 60,
                 backgroundColor: Theme.of(context).primaryColor,
                 child: Text(
-                  portfolio.basics.name[0],
+                  widget.portfolio.basics.name[0],
                   style: const TextStyle(fontSize: 40, color: Colors.white),
                 ),
               ),
               const SizedBox(height: 16),
               Text(
-                portfolio.basics.name,
+                widget.portfolio.basics.name,
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                portfolio.basics.location,
+                widget.portfolio.basics.location,
                 style: Theme.of(
                   context,
                 ).textTheme.titleMedium?.copyWith(color: Colors.grey[600]),
               ),
               const SizedBox(height: 16),
-              Text(portfolio.summary, textAlign: TextAlign.center),
+              Text(widget.portfolio.summary, textAlign: TextAlign.center),
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: onLearnMoreTap,
+                onPressed: widget.onLearnMoreTap,
                 child: const Text('Learn More About Me'),
               ),
               const SizedBox(height: 32),

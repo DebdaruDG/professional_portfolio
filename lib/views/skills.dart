@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_devicon/flutter_devicon.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../colors/color_picker.dart';
 import '../models/portfolio_model.dart';
@@ -109,6 +111,79 @@ class PortfolioCard extends StatelessWidget {
     required this.isVisible,
   });
 
+  // Map skills to their respective icons
+  IconData _getIconForSkill(String skill) {
+    switch (skill.toLowerCase()) {
+      // Languages
+      case 'dart':
+        return FontAwesomeIcons.dartLang;
+      case 'python':
+        return FlutterDEVICON.python_plain_wordmark;
+      case 'javascript':
+        return FlutterDEVICON.javascript_plain;
+      case 'typescript':
+        return FlutterDEVICON.typescript_plain;
+      case 'c':
+        return FlutterDEVICON.c_plain;
+
+      // Databases
+      case 'postgresql':
+        return FlutterDEVICON.postgresql_plain;
+      case 'mongodb':
+        return FlutterDEVICON.mongodb_plain;
+      case 'sqlite':
+        return FlutterDEVICON.sequelize_plain;
+      case 'chromadb':
+        return FontAwesomeIcons
+            .database; // Fallback, as ChromaDB may not have a specific icon
+
+      // Frameworks
+      case 'flutter':
+        return FlutterDEVICON.flutter_plain;
+      case 'angular':
+        return FlutterDEVICON.angularjs_plain;
+      case 'react':
+        return FlutterDEVICON.react_original;
+      case 'node.js':
+        return FlutterDEVICON.nodejs_plain;
+      case 'express.js':
+        return FlutterDEVICON.express_original;
+
+      // Concepts
+      case 'rest':
+        return FontAwesomeIcons.networkWired; // Generic icon for REST
+      case 'graphql':
+        return Icons.graphic_eq_outlined;
+      case 'websockets':
+        return FontAwesomeIcons.satellite; // Generic icon for WebSockets
+      case 'clean architecture':
+        return FontAwesomeIcons.layerGroup; // Generic icon for architecture
+
+      // Tools
+      case 'azure devops':
+        return FontAwesomeIcons.microsoft;
+      case 'firebase':
+        return FontAwesomeIcons.fire;
+      case 'git':
+        return FlutterDEVICON.git_plain;
+      case 'docker':
+        return FlutterDEVICON.docker_plain;
+      case 'figma':
+        return FontAwesomeIcons.figma;
+
+      // Practices
+      case 'agile':
+        return FontAwesomeIcons.userGroup; // Generic icon for Agile
+      case 'ci/cd':
+        return FontAwesomeIcons.codeBranch; // Generic icon for CI/CD
+      case 'tdd':
+        return FontAwesomeIcons.vial; // Generic icon for TDD
+
+      default:
+        return FontAwesomeIcons.circleQuestion; // Fallback for unknown skills
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -122,8 +197,9 @@ class PortfolioCard extends StatelessWidget {
       itemsPerRow = 1;
     }
 
-    final double cardWidth =
-        (screenWidth - 32) / itemsPerRow; // Adjusted for padding
+    final double cardWidth = (screenWidth - 32) / itemsPerRow;
+    final List<String> skills = description.split(', ');
+
     return AnimatedOpacity(
       opacity: isVisible ? 1.0 : 0.0,
       duration: const Duration(milliseconds: 300),
@@ -165,10 +241,32 @@ class PortfolioCard extends StatelessWidget {
                 horizontal: 16.0,
                 vertical: 16.0,
               ),
-              child: Text(
-                description,
-                textAlign: TextAlign.center,
-                style: const TextStyle(color: Colors.white, fontSize: 16),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 16.0,
+                runSpacing: 16.0,
+                children:
+                    skills.map((skill) {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            _getIconForSkill(skill),
+                            color: ColorPicker.cyberYellow,
+                            size: 40,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            skill,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      );
+                    }).toList(),
               ),
             ),
           ],

@@ -6,8 +6,8 @@ import '../widgets/project_card.dart';
 class ProjectsSection extends StatefulWidget {
   final GlobalKey sectionKey;
   final bool isVisible;
+  final Function(VisibilityInfo) onVisibilityChanged;
   final Portfolio portfolio;
-  final Function(VisibilityInfo item) onVisibilityChanged;
 
   const ProjectsSection({
     required this.sectionKey,
@@ -26,21 +26,21 @@ class _ProjectsSectionState extends State<ProjectsSection> {
   Widget build(BuildContext context) {
     return VisibilityDetector(
       key: widget.sectionKey,
-      onVisibilityChanged: (_) => widget.onVisibilityChanged,
+      onVisibilityChanged: widget.onVisibilityChanged,
       child: AnimatedOpacity(
         opacity: widget.isVisible ? 1.0 : 0.0,
-        duration: const Duration(milliseconds: 500),
-        child: Column(
-          key: widget.sectionKey,
-          children: [
-            SectionTitle(
-              title: 'Projects',
-              sectionKey: 'projects',
-              isVisible: widget.isVisible,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
+        duration: const Duration(milliseconds: 300),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SectionTitle(
+                title: 'Projects',
+                sectionKey: 'projects',
+                isVisible: widget.isVisible,
+              ),
+              Column(
                 children:
                     widget.portfolio.projects
                         .asMap()
@@ -56,9 +56,9 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                         )
                         .toList(),
               ),
-            ),
-            const SizedBox(height: 32),
-          ],
+              const SizedBox(height: 32),
+            ],
+          ),
         ),
       ),
     );

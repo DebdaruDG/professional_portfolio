@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../colors/color_picker.dart';
 import '../models/portfolio_model.dart';
-import '../models/skills_model.dart';
 import '../widgets/project_card.dart';
 
 class SkillsSection extends StatefulWidget {
   final GlobalKey sectionKey;
   final bool isVisible;
   final Portfolio portfolio;
-  final Function(VisibilityInfo item) onVisibilityChanged;
+  final Function(VisibilityInfo) onVisibilityChanged;
 
   const SkillsSection({
     required this.sectionKey,
@@ -25,25 +24,33 @@ class SkillsSection extends StatefulWidget {
 
 class _SkillsSectionState extends State<SkillsSection> {
   @override
+  void initState() {
+    super.initState();
+    debugPrint(
+      'SkillsSection: ${widget.portfolio.skills.languages.join(", ")}',
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     final skills = widget.portfolio.skills;
     return VisibilityDetector(
       key: widget.sectionKey,
-      onVisibilityChanged: (_) => widget.onVisibilityChanged,
+      onVisibilityChanged: widget.onVisibilityChanged,
       child: AnimatedOpacity(
-        opacity: widget.isVisible ? 1.0 : 0.0,
+        opacity: widget.isVisible ? 1.0 : 0.3,
         duration: const Duration(milliseconds: 500),
-        child: Column(
-          key: widget.sectionKey,
-          children: [
-            SectionTitle(
-              title: 'Skills',
-              sectionKey: 'skills',
-              isVisible: widget.isVisible,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Wrap(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SectionTitle(
+                title: 'Skills',
+                sectionKey: 'skills',
+                isVisible: widget.isVisible,
+              ),
+              Wrap(
                 alignment: WrapAlignment.center,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 spacing: 16.0,
@@ -81,9 +88,9 @@ class _SkillsSectionState extends State<SkillsSection> {
                   ),
                 ],
               ),
-            ),
-            const SizedBox(height: 32),
-          ],
+              const SizedBox(height: 32),
+            ],
+          ),
         ),
       ),
     );
@@ -115,7 +122,8 @@ class PortfolioCard extends StatelessWidget {
       itemsPerRow = 1;
     }
 
-    final double cardWidth = (screenWidth / itemsPerRow);
+    final double cardWidth =
+        (screenWidth - 32) / itemsPerRow; // Adjusted for padding
     return AnimatedOpacity(
       opacity: isVisible ? 1.0 : 0.0,
       duration: const Duration(milliseconds: 500),
@@ -123,10 +131,7 @@ class PortfolioCard extends StatelessWidget {
         width: cardWidth,
         decoration: BoxDecoration(
           color: Colors.black,
-          border: Border.all(
-            color: ColorPicker.cyberYellow, // Yellow border
-            width: 2.0,
-          ),
+          border: Border.all(color: ColorPicker.cyberYellow, width: 2.0),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -173,7 +178,6 @@ class PortfolioCard extends StatelessWidget {
   }
 }
 
-// Custom Painter for the yellow zigzag divider
 class ZigZagPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

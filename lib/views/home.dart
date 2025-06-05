@@ -5,7 +5,7 @@ import '../models/portfolio_model.dart';
 class HomeSection extends StatefulWidget {
   final GlobalKey sectionKey;
   final bool isVisible;
-  final Function(VisibilityInfo item) onVisibilityChanged;
+  final Function(VisibilityInfo) onVisibilityChanged;
   final Portfolio portfolio;
   final VoidCallback onLearnMoreTap;
 
@@ -24,16 +24,26 @@ class HomeSection extends StatefulWidget {
 
 class _HomeSectionState extends State<HomeSection> {
   @override
+  void initState() {
+    super.initState();
+    debugPrint('HomeSection: ${widget.portfolio.basics.name}');
+  }
+
+  @override
   Widget build(BuildContext context) {
     return VisibilityDetector(
       key: widget.sectionKey,
-      onVisibilityChanged: (_) => widget.onVisibilityChanged,
+      onVisibilityChanged: widget.onVisibilityChanged,
       child: AnimatedOpacity(
         opacity: widget.isVisible ? 1.0 : 0.0,
         duration: const Duration(milliseconds: 500),
-        child: Padding(
+        child: Container(
           padding: const EdgeInsets.all(16.0),
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height - kToolbarHeight,
+          ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               CircleAvatar(
                 radius: 60,
@@ -46,18 +56,25 @@ class _HomeSectionState extends State<HomeSection> {
               const SizedBox(height: 16),
               Text(
                 widget.portfolio.basics.name,
+                textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              const SizedBox(height: 16),
               Text(
                 widget.portfolio.basics.location,
+                textAlign: TextAlign.center,
                 style: Theme.of(
                   context,
                 ).textTheme.titleMedium?.copyWith(color: Colors.grey[600]),
               ),
               const SizedBox(height: 16),
-              Text(widget.portfolio.summary, textAlign: TextAlign.center),
+              Text(
+                widget.portfolio.summary,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: widget.onLearnMoreTap,

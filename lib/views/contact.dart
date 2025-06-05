@@ -6,8 +6,8 @@ import '../widgets/project_card.dart';
 class ContactSection extends StatefulWidget {
   final GlobalKey sectionKey;
   final bool isVisible;
+  final Function(VisibilityInfo) onVisibilityChanged;
   final Portfolio portfolio;
-  final Function(VisibilityInfo item) onVisibilityChanged;
 
   const ContactSection({
     required this.sectionKey,
@@ -26,47 +26,43 @@ class _ContactSectionState extends State<ContactSection> {
   Widget build(BuildContext context) {
     return VisibilityDetector(
       key: widget.sectionKey,
-      onVisibilityChanged: (_) => widget.onVisibilityChanged,
+      onVisibilityChanged: widget.onVisibilityChanged,
       child: AnimatedOpacity(
         opacity: widget.isVisible ? 1.0 : 0.0,
-        duration: const Duration(milliseconds: 500),
-        child: Column(
-          key: widget.sectionKey,
-          children: [
-            SectionTitle(
-              title: 'Contact Me',
-              sectionKey: 'contact',
-              isVisible: widget.isVisible,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                children: [
-                  InfoCard(
-                    title: 'Contact Information',
-                    items: [
-                      'Email: ${widget.portfolio.basics.email}',
-                      'Phone: ${widget.portfolio.basics.phone}',
-                      'Location: ${widget.portfolio.basics.location}',
-                    ],
-                    sectionKey: 'contact-info',
-                    isVisible: widget.isVisible,
-                  ),
-                  InfoCard(
-                    title: 'Connect with Me',
-                    items: [
-                      'GitHub: ${widget.portfolio.basics.github}',
-                      'LinkedIn: ${widget.portfolio.basics.linkedin}',
-                      'Portfolio: ${widget.portfolio.basics.portfolio}',
-                    ],
-                    sectionKey: 'contact-connect',
-                    isVisible: widget.isVisible,
-                  ),
-                ],
+        duration: const Duration(milliseconds: 300),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SectionTitle(
+                title: 'Contact Me',
+                sectionKey: 'contact',
+                isVisible: widget.isVisible,
               ),
-            ),
-            const SizedBox(height: 32),
-          ],
+              InfoCard(
+                title: 'Contact Information',
+                items: [
+                  'Email: ${widget.portfolio.basics.email}',
+                  'Phone: ${widget.portfolio.basics.phone}',
+                  'Location: ${widget.portfolio.basics.location}',
+                ],
+                sectionKey: 'contact-info',
+                isVisible: widget.isVisible,
+              ),
+              InfoCard(
+                title: 'Connect with Me',
+                items: [
+                  'GitHub: ${widget.portfolio.basics.github}',
+                  'LinkedIn: ${widget.portfolio.basics.linkedin}',
+                  'Portfolio: ${widget.portfolio.basics.portfolio}',
+                ],
+                sectionKey: 'contact-connect',
+                isVisible: widget.isVisible,
+              ),
+              const SizedBox(height: 32),
+            ],
+          ),
         ),
       ),
     );

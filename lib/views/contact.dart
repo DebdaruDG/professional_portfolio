@@ -55,7 +55,7 @@ class _ContactSectionState extends State<ContactSection> {
             children: [
               // Form
               Container(
-                width: MediaQuery.of(context).size.width * 0.55,
+                width: MediaQuery.of(context).size.width * 0.45,
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -196,18 +196,14 @@ class _ContactSectionState extends State<ContactSection> {
                   ],
                 ),
               ),
+              const SizedBox(width: 32),
               // Right Side Image
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CustomShapeImage(
-                    firstImagePath: 'assets/Images/Trip_03.jpg',
-                    secondImagePath: 'assets/Images/Trip_02.jpg',
-                    style: ShapeStyle.whiteBorder,
-                    height: MediaQuery.of(context).size.height * 0.9,
-                    width: MediaQuery.of(context).size.width * 0.4,
-                  ),
-                ],
+              CustomShapeImage(
+                firstImagePath: 'assets/Images/Trip_03.jpg',
+                secondImagePath: 'assets/Images/Trip_02.jpg',
+                style: ShapeStyle.whiteBorder,
+                height: MediaQuery.of(context).size.height * 0.75,
+                width: MediaQuery.of(context).size.width * 0.35,
               ),
             ],
           ),

@@ -50,17 +50,23 @@
     {
       "name": "NewsForg",
       "url": "https://newsforg.netlify.app/",
-      "description": "Single-handedly built the CMS WebApp; backend in Node.js."
-    },
-    {
-      "name": "Portfolio Website",
-      "url": "https://debs-portfolio-1099.netlify.app/",
-      "description": "Features complete achievements, work history, and projects."
+      "description": "Single-handedly built the CMS WebApp; backend in Node.js.",
+      "assetImageURL": "NewsForg_Landing.png",
+      "launcherURL": "https://newsforg.netlify.app/"
     },
     {
       "name": "Let’s Chat",
       "url": "https://realtime-chat-application-kh5x.onrender.com",
-      "description": "WebSocket-based real-time chat app with image sharing."
+      "description": "WebSocket-based real-time chat app with image sharing.",
+      "assetImageURL": "Lets_Chat_01.png",
+      "launcherURL": "https://realtime-chat-application-kh5x.onrender.com"
+    },
+    {
+      "name": "InventoPro",
+      "url": "https://inventopro.netlify.app/",
+      "description": "One Stop solution for all Inventory Management Solutions.",
+      "assetImageURL": "Invento_Pro.png",
+      "launcherURL": "https://inventopro.netlify.app/"
     }
   ],
   "education": {

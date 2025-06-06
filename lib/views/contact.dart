@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_devicon/flutter_devicon.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:personal_porfolio/colors/color_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:visibility_detector/visibility_detector.dart';

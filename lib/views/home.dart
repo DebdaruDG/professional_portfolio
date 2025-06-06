@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+import '../colors/color_picker.dart';
 import '../models/portfolio_model.dart';
 import '../widgets/helpers/image_slider.dart';
 
@@ -62,8 +63,12 @@ class _HomeSectionState extends State<HomeSection> {
                     Text(
                       widget.portfolio.basics.name,
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headlineSmall
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: ColorPicker.cyberYellow,
+                      ),
                     ),
                     const SizedBox(height: 16),
                     Text(

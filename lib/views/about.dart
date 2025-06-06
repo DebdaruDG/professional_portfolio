@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../models/portfolio_model.dart';
+import '../widgets/helpers/resume_download_button.dart';
 import '../widgets/project_card.dart';
 import '../colors/color_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -77,12 +78,13 @@ class _AboutSectionState extends State<AboutSection> {
                         isVisible: widget.isVisible,
                       ),
                       const SizedBox(height: 24),
-                      ElevatedButton(
-                        onPressed: () {
-                          // Logic to Download Resume
-                        },
-                        child: const Text('Download Resume'),
-                      ),
+                      DownloadResumeButton(),
+                      // ElevatedButton(
+                      //   onPressed: () {
+                      //     // Logic to Download Resume
+                      //   },
+                      //   child: const Text('Download Resume'),
+                      // ),
                     ],
                   ),
                 ),

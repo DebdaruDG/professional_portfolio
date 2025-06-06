@@ -79,12 +79,6 @@ class _AboutSectionState extends State<AboutSection> {
                       ),
                       const SizedBox(height: 24),
                       DownloadResumeButton(),
-                      // ElevatedButton(
-                      //   onPressed: () {
-                      //     // Logic to Download Resume
-                      //   },
-                      //   child: const Text('Download Resume'),
-                      // ),
                     ],
                   ),
                 ),

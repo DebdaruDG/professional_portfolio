@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_devicon/flutter_devicon.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:personal_porfolio/colors/color_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../models/portfolio_model.dart';
 import '../widgets/helpers/contact_custom_shape.dart';
@@ -157,23 +158,26 @@ class _ContactSectionState extends State<ContactSection> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         IconButton(
-                          onPressed: () {
-                            // Navigate to Facebook
+                          // Navigate to Facebook
+                          onPressed: () async {
+                            final uri = Uri.parse(
+                              'mailto:${widget.portfolio.basics.email}',
+                            );
+                            if (await canLaunchUrl(uri)) {
+                              await launchUrl(uri);
+                            }
                           },
                           icon: const Icon(Icons.mail, color: Colors.white),
                         ),
                         IconButton(
-                          onPressed: () {
-                            // Navigate to Instagram
-                          },
-                          icon: const Icon(
-                            FontAwesomeIcons.instagram,
-                            color: Colors.white,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            // Navigate to LinkedIn
+                          // Navigate to LinkedIn
+                          onPressed: () async {
+                            final uri = Uri.parse(
+                              widget.portfolio.basics.linkedin,
+                            );
+                            if (await canLaunchUrl(uri)) {
+                              await launchUrl(uri);
+                            }
                           },
                           icon: const Icon(
                             FlutterDEVICON.linkedin_plain,
@@ -181,8 +185,14 @@ class _ContactSectionState extends State<ContactSection> {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {
-                            // Navigate to GitHub or other platform
+                          // Navigate to GitHub or other platform
+                          onPressed: () async {
+                            final uri = Uri.parse(
+                              widget.portfolio.basics.github,
+                            );
+                            if (await canLaunchUrl(uri)) {
+                              await launchUrl(uri);
+                            }
                           },
                           icon: const Icon(
                             FlutterDEVICON.github_original,

@@ -34,6 +34,8 @@ flutter:
       - assets/data/
       - assets/Images/
       - assets/Playfair_Display_SC/
+      - assets/Nunito/
+      - assets/Space_Grotesk/
 
   fonts:
     - family: BebasNeue

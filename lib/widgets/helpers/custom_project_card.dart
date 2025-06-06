@@ -45,19 +45,20 @@ class _CustomProjectCardState extends State<CustomProjectCard> {
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
+      cursor: _isHovered ? SystemMouseCursors.click : SystemMouseCursors.basic,
       child: GestureDetector(
         onTap: () => _launchUrl(widget.projectUrl),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          margin: const EdgeInsets.symmetric(vertical: 8.0),
-          padding: const EdgeInsets.all(16.0),
+          margin:
+              _isHovered
+                  ? EdgeInsets.zero
+                  : const EdgeInsets.symmetric(vertical: 8.0),
+          padding: _isHovered ? EdgeInsets.zero : const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
             color: Colors.grey[900], // Dark background
-            border: Border.all(
-              color: ColorPicker.cyberYellow, // 1.5px cyberYellow border
-              width: 1.5,
-            ),
-            borderRadius: BorderRadius.zero, // 0 border radius
+            border: Border.all(color: ColorPicker.cyberYellow, width: 1.5),
+            borderRadius: BorderRadius.zero,
             boxShadow: [
               BoxShadow(
                 color:
@@ -72,56 +73,62 @@ class _CustomProjectCardState extends State<CustomProjectCard> {
           ),
           child: Stack(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.name,
-                    style: const TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: ColorPicker.cyberYellow, // Text color cyberYellow
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  AnimatedOpacity(
-                    opacity: _isHovered ? 0.0 : 1.0,
-                    duration: const Duration(milliseconds: 200),
-                    child: Text(
-                      widget.description,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        color:
-                            ColorPicker.cyberYellow, // Text color cyberYellow
+              // Non-hovered state: Title and Description
+              AnimatedOpacity(
+                opacity: _isHovered ? 0.0 : 1.0,
+                duration: const Duration(milliseconds: 200),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.name,
+                        style: const TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          color: ColorPicker.cyberYellow,
+                        ),
                       ),
-                    ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        widget.description,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          color: ColorPicker.cyberYellow,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
+              // Hovered state: Full-container image and icon
               AnimatedOpacity(
                 opacity: _isHovered ? 1.0 : 0.0,
                 duration: const Duration(milliseconds: 200),
-                child: Column(
+                child: Stack(
                   children: [
-                    Expanded(
-                      child: Image.asset(
-                        'assets/images/${widget.imageUrl}', // Using asset path
-                        width: double.infinity,
-                        fit: BoxFit.cover, // Image fits container
-                        errorBuilder:
-                            (context, error, stackTrace) => Container(
-                              color: Colors.grey[300],
-                              child: const Center(
-                                child: Text('Image not available'),
-                              ),
+                    Image.asset(
+                      'assets/images/${widget.imageUrl}',
+                      width: double.infinity,
+                      height: double.infinity,
+                      fit: BoxFit.cover, // Image covers entire container
+                      errorBuilder:
+                          (context, error, stackTrace) => Container(
+                            color: Colors.grey[300],
+                            child: const Center(
+                              child: Text('Image not available'),
                             ),
-                      ),
+                          ),
                     ),
-                    const SizedBox(height: 8.0),
-                    const Icon(
-                      Icons.touch_app,
-                      color: ColorPicker.cyberYellow, // Icon color cyberYellow
-                      size: 24.0,
+                    Positioned(
+                      bottom: 8.0,
+                      right: 8.0,
+                      child: const Icon(
+                        Icons.touch_app,
+                        color: ColorPicker.cyberYellow,
+                        size: 24.0,
+                      ),
                     ),
                   ],
                 ),

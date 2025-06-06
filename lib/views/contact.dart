@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_devicon/flutter_devicon.dart';
+import 'package:personal_porfolio/colors/color_picker.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../models/portfolio_model.dart';
+import '../widgets/helpers/contact_custom_shape.dart';
 import '../widgets/project_card.dart';
 
 class ContactSection extends StatefulWidget {
@@ -22,6 +25,19 @@ class ContactSection extends StatefulWidget {
 }
 
 class _ContactSectionState extends State<ContactSection> {
+  final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _messageController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _messageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return VisibilityDetector(
@@ -31,36 +47,168 @@ class _ContactSectionState extends State<ContactSection> {
         opacity: widget.isVisible ? 1.0 : 0.0,
         duration: const Duration(milliseconds: 300),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
+          color: Colors.black87,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SectionTitle(
-                title: 'Contact Me',
-                sectionKey: 'contact',
-                isVisible: widget.isVisible,
+              // Form
+              Container(
+                width: MediaQuery.of(context).size.width * 0.55,
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      "Let's talk",
+                      style: TextStyle(
+                        fontSize: 36,
+                        fontWeight: FontWeight.bold,
+                        color: ColorPicker.cyberYellow,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      "To request a quote or want to meet up for coffee, contact me directly or fill out the form and I will get back to you soon.",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white70,
+                        height: 1.5,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 32),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            controller: _nameController,
+                            decoration: InputDecoration(
+                              hintText: 'Your Name',
+                              hintStyle: const TextStyle(color: Colors.white54),
+                              filled: true,
+                              fillColor: Colors.grey[800],
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          const SizedBox(height: 16),
+                          TextFormField(
+                            controller: _emailController,
+                            decoration: InputDecoration(
+                              hintText: 'Your Email',
+                              hintStyle: const TextStyle(color: Colors.white54),
+                              filled: true,
+                              fillColor: Colors.grey[800],
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          const SizedBox(height: 16),
+                          TextFormField(
+                            controller: _messageController,
+                            decoration: InputDecoration(
+                              hintText: 'Your Message',
+                              hintStyle: const TextStyle(color: Colors.white54),
+                              filled: true,
+                              fillColor: Colors.grey[800],
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
+                            style: const TextStyle(color: Colors.white),
+                            maxLines: 5,
+                          ),
+                          const SizedBox(height: 24),
+                          ElevatedButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                // Handle form submission logic here
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: ColorPicker.cyberYellow,
+                              foregroundColor: Colors.black,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 32,
+                                vertical: 16,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                            child: const Text(
+                              'SEND MESSAGE',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            // Navigate to Facebook
+                          },
+                          icon: const Icon(Icons.facebook, color: Colors.white),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            // Navigate to Instagram
+                          },
+                          icon: const Icon(
+                            Icons.camera_alt,
+                            color: Colors.white,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            // Navigate to LinkedIn
+                          },
+                          icon: const Icon(
+                            FlutterDEVICON.linkedin_plain,
+                            color: Colors.white,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            // Navigate to GitHub or other platform
+                          },
+                          icon: const Icon(Icons.code, color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              InfoCard(
-                title: 'Contact Information',
-                items: [
-                  'Email: ${widget.portfolio.basics.email}',
-                  'Phone: ${widget.portfolio.basics.phone}',
-                  'Location: ${widget.portfolio.basics.location}',
+              // Right Side Image
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CustomShapeImage(
+                    firstImagePath: 'assets/Images/Trip_03.jpg',
+                    secondImagePath: 'assets/Images/Trip_02.jpg',
+                    style: ShapeStyle.whiteBorder,
+                    height: MediaQuery.of(context).size.height * 0.9,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                  ),
                 ],
-                sectionKey: 'contact-info',
-                isVisible: widget.isVisible,
               ),
-              InfoCard(
-                title: 'Connect with Me',
-                items: [
-                  'GitHub: ${widget.portfolio.basics.github}',
-                  'LinkedIn: ${widget.portfolio.basics.linkedin}',
-                  'Portfolio: ${widget.portfolio.basics.portfolio}',
-                ],
-                sectionKey: 'contact-connect',
-                isVisible: widget.isVisible,
-              ),
-              const SizedBox(height: 32),
             ],
           ),
         ),

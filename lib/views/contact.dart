@@ -1,10 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_devicon/flutter_devicon.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:personal_porfolio/colors/color_picker.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import '../models/portfolio_model.dart';
 import '../widgets/helpers/contact_custom_shape.dart';
-import '../widgets/project_card.dart';
 
 class ContactSection extends StatefulWidget {
   final GlobalKey sectionKey;
@@ -146,18 +147,12 @@ class _ContactSectionState extends State<ContactSection> {
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                             ),
-                            child: const Text(
-                              'SEND MESSAGE',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            child: const Text('SEND MESSAGE'),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -165,14 +160,14 @@ class _ContactSectionState extends State<ContactSection> {
                           onPressed: () {
                             // Navigate to Facebook
                           },
-                          icon: const Icon(Icons.facebook, color: Colors.white),
+                          icon: const Icon(Icons.mail, color: Colors.white),
                         ),
                         IconButton(
                           onPressed: () {
                             // Navigate to Instagram
                           },
                           icon: const Icon(
-                            Icons.camera_alt,
+                            FontAwesomeIcons.instagram,
                             color: Colors.white,
                           ),
                         ),
@@ -189,7 +184,10 @@ class _ContactSectionState extends State<ContactSection> {
                           onPressed: () {
                             // Navigate to GitHub or other platform
                           },
-                          icon: const Icon(Icons.code, color: Colors.white),
+                          icon: const Icon(
+                            FlutterDEVICON.github_original,
+                            color: Colors.white,
+                          ),
                         ),
                       ],
                     ),

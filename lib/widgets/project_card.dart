@@ -20,6 +20,7 @@ class SectionTitle extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16.0),
         child: Text(
           title,
+          textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
             fontWeight: FontWeight.bold,
             color: Theme.of(context).primaryColor,

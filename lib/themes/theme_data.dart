@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:personal_porfolio/constants/font_families.dart';
 import '../colors/color_picker.dart';
 
 class Themes {
+  static const displayFontFamily = FontFamily.bebasNeue;
+  static const bodyFontFamily = FontFamily.playfairDisplaySC;
   static final TextTheme baseTextTheme = TextTheme(
     displayLarge: TextStyle(
-      fontFamily: 'BebasNeue',
+      fontFamily: displayFontFamily.name,
       fontSize: 48,
       fontWeight: FontWeight.bold,
     ),
     displayMedium: TextStyle(
-      fontFamily: 'BebasNeue',
+      fontFamily: displayFontFamily.name,
       fontSize: 36,
       fontWeight: FontWeight.bold,
     ),
     titleLarge: TextStyle(
-      fontFamily: 'PlayfairDisplaySC',
+      fontFamily: bodyFontFamily.name,
       fontSize: 24,
       fontWeight: FontWeight.w700,
     ),
-    bodyLarge: TextStyle(fontFamily: 'PlayfairDisplaySC', fontSize: 18),
-    bodyMedium: TextStyle(fontFamily: 'PlayfairDisplaySC', fontSize: 16),
-    bodySmall: TextStyle(fontFamily: 'PlayfairDisplaySC', fontSize: 14),
+    bodyLarge: TextStyle(fontFamily: bodyFontFamily.name, fontSize: 18),
+    bodyMedium: TextStyle(fontFamily: bodyFontFamily.name, fontSize: 16),
+    bodySmall: TextStyle(fontFamily: bodyFontFamily.name, fontSize: 14),
   );
 
   static ThemeData lightTheme = ThemeData(
@@ -28,7 +31,7 @@ class Themes {
     primaryColor: ColorPicker.lightPrimary,
     scaffoldBackgroundColor: ColorPicker.lightBackground,
     cardColor: ColorPicker.lightCard,
-    fontFamily: 'PlayfairDisplaySC',
+    fontFamily: bodyFontFamily.name,
     textTheme: baseTextTheme,
     colorScheme: ColorScheme.light(
       primary: ColorPicker.lightPrimary,
@@ -42,7 +45,7 @@ class Themes {
     primaryColor: ColorPicker.darkPrimary,
     scaffoldBackgroundColor: ColorPicker.darkBackground,
     cardColor: ColorPicker.darkCard,
-    fontFamily: 'PlayfairDisplaySC',
+    fontFamily: bodyFontFamily.name,
     textTheme: baseTextTheme,
     colorScheme: ColorScheme.dark(
       primary: ColorPicker.darkPrimary,
@@ -56,7 +59,7 @@ class Themes {
     primaryColor: ColorPicker.customPrimary,
     scaffoldBackgroundColor: ColorPicker.customBackground,
     cardColor: ColorPicker.customCard,
-    fontFamily: 'PlayfairDisplaySC',
+    fontFamily: bodyFontFamily.name,
     textTheme: baseTextTheme,
     colorScheme: ColorScheme.light(
       primary: ColorPicker.customPrimary,
@@ -70,7 +73,7 @@ class Themes {
     primaryColor: ColorPicker.cyberYellow,
     scaffoldBackgroundColor: ColorPicker.cyberBlack,
     cardColor: ColorPicker.cyberCard,
-    fontFamily: 'PlayfairDisplaySC',
+    fontFamily: bodyFontFamily.name,
     textTheme: baseTextTheme,
     colorScheme: const ColorScheme.dark(
       primary: ColorPicker.cyberYellow,

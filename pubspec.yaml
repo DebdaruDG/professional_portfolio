@@ -57,3 +57,13 @@ flutter:
         - asset: assets/Playfair_Display_SC/PlayfairDisplaySC-BlackItalic.ttf
           weight: 900
           style: italic
+    
+    - family: Nunito
+      fonts:
+        - asset: assets/Nunito/Nunito-VariableFont_wght.ttf
+        - asset: assets/Nunito/Nunito-Italic-VariableFont_wght.ttf
+          style: italic
+          
+    - family: SpaceGrotesk
+      fonts:
+        - asset: assets/Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf 

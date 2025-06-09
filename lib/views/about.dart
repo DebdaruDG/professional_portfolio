@@ -76,55 +76,38 @@ class _AboutSectionState extends State<AboutSection> {
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start, // Align to top
                     children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Text(
-                          //   'Education',
-                          //   style: Theme.of(
-                          //     context,
-                          //   ).textTheme.titleLarge?.copyWith(
-                          //     color: Colors.white,
-                          //     fontWeight: FontWeight.bold,
-                          //   ),
-                          // ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            child: _EducationSection(
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _EducationSection(
                               education: widget.portfolio.education,
                               isVisible: widget.isVisible,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       Container(
                         color: ColorPicker.cyberYellow,
-                        margin: const EdgeInsets.all(10),
-                        height: MediaQuery.of(context).size.height * 0.8,
+                        margin: const EdgeInsets.symmetric(horizontal: 10.0),
                         width: 2,
+                        height: MediaQuery.of(context).size.height * 0.8,
                       ),
-                      Column(
-                        children: [
-                          // Text(
-                          //   'Experience',
-                          //   style: Theme.of(
-                          //     context,
-                          //   ).textTheme.titleLarge?.copyWith(
-                          //     color: Colors.white,
-                          //     fontWeight: FontWeight.bold,
-                          //   ),
-                          // ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            child: _ExperienceSection(
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _ExperienceSection(
                               experiences: widget.portfolio.experience,
                               isVisible: widget.isVisible,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -232,9 +215,8 @@ class _InfoCard extends StatelessWidget {
                 ],
                 Text(
                   title,
-                  textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    color: Colors.white,
+                    color: ColorPicker.cyberYellow,
                     fontWeight: FontWeight.w700,
                     letterSpacing: 0.5,
                   ),

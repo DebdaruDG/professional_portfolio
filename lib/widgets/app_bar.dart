@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../colors/color_picker.dart';
+
 class PortfolioAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String currentSection;
   final bool isVisible;
@@ -18,9 +20,12 @@ class PortfolioAppBar extends StatelessWidget implements PreferredSizeWidget {
       opacity: isVisible ? 1.0 : 0.3,
       duration: const Duration(milliseconds: 300),
       child: AppBar(
-        title: const Text(
+        title: Text(
           'Debdaru Dasgupta',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: ColorPicker.cyberYellow,
+          ),
         ),
         backgroundColor: Theme.of(context).cardColor,
         actions: [
@@ -88,7 +93,7 @@ class _NavItem extends StatelessWidget {
         child: Text(
           title,
           style: TextStyle(
-            color: isActive ? Colors.white : Colors.white70,
+            color: isActive ? ColorPicker.cyberYellow : Colors.white70,
             fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
           ),
         ),

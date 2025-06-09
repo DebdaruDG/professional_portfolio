@@ -3,8 +3,8 @@ import 'package:personal_porfolio/constants/font_families.dart';
 import '../colors/color_picker.dart';
 
 class Themes {
-  static const displayFontFamily = FontFamily.bebasNeue;
-  static const bodyFontFamily = FontFamily.playfairDisplaySC;
+  static const displayFontFamily = FontFamily.nunito;
+  static const bodyFontFamily = FontFamily.spaceGrotesk;
   static final TextTheme baseTextTheme = TextTheme(
     displayLarge: TextStyle(
       fontFamily: displayFontFamily.name,

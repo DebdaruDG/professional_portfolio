@@ -155,6 +155,24 @@ class _ContactSectionState extends State<ContactSection> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width / 10,
+                          height: 1,
+                          color: ColorPicker.cyberYellow,
+                          margin: const EdgeInsets.symmetric(horizontal: 10),
+                        ),
+                        Text('or Contact Me at'),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 10,
+                          height: 1,
+                          color: ColorPicker.cyberYellow,
+                          margin: const EdgeInsets.symmetric(horizontal: 10),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
                         IconButton(
                           // Navigate to Facebook
                           onPressed: () async {

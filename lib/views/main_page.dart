@@ -42,7 +42,6 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     _scrollController.addListener(_handleScroll);
-    debugPrint('MainPage Portfolio: ${widget.portfolio.basics.name}');
   }
 
   void _handleScroll() {

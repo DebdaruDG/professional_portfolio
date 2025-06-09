@@ -28,7 +28,6 @@ class _HomeSectionState extends State<HomeSection> {
   @override
   void initState() {
     super.initState();
-    debugPrint('HomeSection: ${widget.portfolio.basics.name}');
   }
 
   @override

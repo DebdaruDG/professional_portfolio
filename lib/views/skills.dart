@@ -28,9 +28,6 @@ class _SkillsSectionState extends State<SkillsSection> {
   @override
   void initState() {
     super.initState();
-    debugPrint(
-      'SkillsSection: ${widget.portfolio.skills.languages.join(", ")}',
-    );
   }
 
   @override

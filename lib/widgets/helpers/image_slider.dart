@@ -19,9 +19,6 @@ class _ImageSliderScreenState extends State<ImageSliderScreen> {
   @override
   void initState() {
     super.initState();
-    debugPrint(
-      'ImageSliderScreen: Images loaded: ${AssetImageUrls.allImages.length}',
-    );
   }
 
   @override
@@ -55,7 +52,6 @@ class _ImageSliderScreenState extends State<ImageSliderScreen> {
     final imageList = AssetImageUrls.allImages;
 
     if (imageList.isEmpty) {
-      debugPrint('ImageSliderScreen: No images available');
       return const Center(child: Text('No images to display'));
     }
 
@@ -69,7 +65,6 @@ class _ImageSliderScreenState extends State<ImageSliderScreen> {
                 itemCount: imageList.length,
                 onPageChanged: (index) {
                   setState(() => _currentIndex = index);
-                  debugPrint('ImageSliderScreen: Current index: $index');
                 },
                 physics:
                     const AlwaysScrollableScrollPhysics(), // Ensure swiping works
@@ -84,7 +79,6 @@ class _ImageSliderScreenState extends State<ImageSliderScreen> {
                         width: double.infinity,
                         height: double.infinity,
                         errorBuilder: (context, error, stackTrace) {
-                          debugPrint('Image error: $error');
                           return const Center(
                             child: Text('Image failed to load'),
                           );

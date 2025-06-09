@@ -11,7 +11,6 @@ void main() {
     ChangeNotifierProvider(
       create: (_) {
         final themeProvider = ThemeProvider();
-        debugPrint('ThemeProvider initialized: ${themeProvider.theme}');
         return themeProvider;
       },
       child: const MyApp(),
@@ -28,7 +27,6 @@ class MyApp extends StatelessWidget {
 
     return FutureBuilder<Portfolio>(
       future: loadPortfolio('my_details.json').catchError((error) {
-        debugPrint('Error loading portfolio: $error');
         throw error;
       }),
       builder: (context, snapshot) {
@@ -43,7 +41,6 @@ class MyApp extends StatelessWidget {
                   body: Center(child: CircularProgressIndicator()),
                 );
               } else if (snapshot.hasError) {
-                debugPrint('Snapshot error: ${snapshot.error}');
                 return Scaffold(
                   body: Center(child: Text('Error: ${snapshot.error}')),
                 );
@@ -52,7 +49,6 @@ class MyApp extends StatelessWidget {
                   body: Center(child: Text('No data found')),
                 );
               } else {
-                debugPrint('Portfolio loaded: ${snapshot.data!.basics.name}');
                 return MainPage(portfolio: snapshot.data!);
               }
             },

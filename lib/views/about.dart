@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -39,89 +41,131 @@ class _AboutSectionState extends State<AboutSection> {
         opacity: widget.isVisible ? 1.0 : 0.0,
         duration: const Duration(milliseconds: 500),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
+          padding: EdgeInsets.symmetric(
+            horizontal: _getResponsivePadding(context),
+            vertical: 40.0,
+          ),
           constraints: const BoxConstraints(maxWidth: 1200),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: AnimationConfiguration.toStaggeredList(
-              duration: const Duration(milliseconds: 600),
-              childAnimationBuilder:
-                  (widget) => SlideAnimation(
-                    verticalOffset: 50.0,
-                    child: FadeInAnimation(child: widget),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: AnimationConfiguration.toStaggeredList(
+                duration: const Duration(milliseconds: 600),
+                childAnimationBuilder:
+                    (widget) => SlideAnimation(
+                      verticalOffset: 50.0,
+                      child: FadeInAnimation(child: widget),
+                    ),
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    child: SectionTitle(
+                      title: 'About Me',
+                      sectionKey: 'about',
+                      isVisible: widget.isVisible,
+                    ),
                   ),
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: SectionTitle(
-                    title: 'About Me',
-                    sectionKey: 'about',
-                    isVisible: widget.isVisible,
+                  const SizedBox(height: 32),
+                  SizedBox(
+                    width: double.infinity,
+                    child: _InfoCard(
+                      title: 'Summary',
+                      subtitle: widget.portfolio.summary,
+                      sectionKey: 'about-summary',
+                      isVisible: widget.isVisible,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 32),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: _InfoCard(
-                    title: 'Summary',
-                    subtitle: widget.portfolio.summary,
-                    sectionKey: 'about-summary',
-                    isVisible: widget.isVisible,
+                  const SizedBox(height: 24),
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      bool isMobile = constraints.maxWidth < 600;
+                      return isMobile
+                          ? _buildMobileLayout(context)
+                          : _buildDesktopLayout(context);
+                    },
                   ),
-                ),
-                const SizedBox(height: 24),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start, // Align to top
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.45,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _EducationSection(
-                              education: widget.portfolio.education,
-                              isVisible: widget.isVisible,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        color: ColorPicker.cyberYellow,
-                        margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                        width: 2,
-                        height: MediaQuery.of(context).size.height * 0.8,
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.45,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _ExperienceSection(
-                              experiences: widget.portfolio.experience,
-                              isVisible: widget.isVisible,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                  const SizedBox(height: 24),
+                  Align(
+                    alignment: Alignment.center,
+                    child: DownloadResumeButton(),
                   ),
-                ),
-                const SizedBox(height: 24),
-                Align(
-                  alignment: Alignment.center,
-                  child: DownloadResumeButton(),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  // Responsive padding based on screen width
+  double _getResponsivePadding(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    if (width < 600) return 16.0; // Mobile
+    if (width < 900) return 24.0; // Tablet
+    return 32.0; // Desktop
+  }
+
+  // Responsive font size scaling
+  double _getResponsiveFontSize(BuildContext context, double baseSize) {
+    final width = MediaQuery.of(context).size.width;
+    return baseSize *
+        (width < 600
+            ? 0.9
+            : width < 900
+            ? 0.95
+            : 1.0);
+  }
+
+  // Desktop layout with Row
+  Widget _buildDesktopLayout(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: _EducationSection(
+            education: widget.portfolio.education,
+            isVisible: widget.isVisible,
+          ),
+        ),
+        Container(
+          color: ColorPicker.cyberYellow,
+          margin: const EdgeInsets.symmetric(horizontal: 16.0),
+          width: 2,
+          height: max(200, MediaQuery.of(context).size.height * 0.5),
+        ),
+        Expanded(
+          child: _ExperienceSection(
+            experiences: widget.portfolio.experience,
+            isVisible: widget.isVisible,
+          ),
+        ),
+      ],
+    );
+  }
+
+  // Mobile layout with Column
+  Widget _buildMobileLayout(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _EducationSection(
+          education: widget.portfolio.education,
+          isVisible: widget.isVisible,
+        ),
+        const SizedBox(height: 24),
+        Container(
+          color: ColorPicker.cyberYellow,
+          margin: const EdgeInsets.symmetric(vertical: 16.0),
+          height: 2,
+          width: double.infinity,
+        ),
+        _ExperienceSection(
+          experiences: widget.portfolio.experience,
+          isVisible: widget.isVisible,
+        ),
+      ],
     );
   }
 }
@@ -213,12 +257,17 @@ class _InfoCard extends StatelessWidget {
                   Icon(icon, color: ColorPicker.cyberYellow, size: 28),
                   const SizedBox(width: 12),
                 ],
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    color: ColorPicker.cyberYellow,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 0.5,
+                Expanded(
+                  child: Text(
+                    title,
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontSize: _getResponsiveFontSize(context, 24),
+                      color: ColorPicker.cyberYellow,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 0.5,
+                    ),
+                    softWrap: true,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],
@@ -228,9 +277,12 @@ class _InfoCard extends StatelessWidget {
               Text(
                 subtitle!,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  fontSize: _getResponsiveFontSize(context, 16),
                   color: Colors.grey[300],
                   height: 1.5,
                 ),
+                softWrap: true,
+                overflow: TextOverflow.clip,
               ),
             if (subtitle != null && items != null) const SizedBox(height: 16),
             if (items != null)
@@ -260,6 +312,10 @@ class _InfoCard extends StatelessWidget {
                                   style: Theme.of(
                                     context,
                                   ).textTheme.bodyMedium?.copyWith(
+                                    fontSize: _getResponsiveFontSize(
+                                      context,
+                                      14,
+                                    ),
                                     color:
                                         entry.value.startsWith('•')
                                             ? Colors.grey[300]
@@ -270,6 +326,8 @@ class _InfoCard extends StatelessWidget {
                                             : FontWeight.w600,
                                     height: 1.5,
                                   ),
+                                  softWrap: true,
+                                  overflow: TextOverflow.clip,
                                 ),
                       ),
                     ],
@@ -280,5 +338,16 @@ class _InfoCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  // Responsive font size scaling (moved to _InfoCard for reuse)
+  double _getResponsiveFontSize(BuildContext context, double baseSize) {
+    final width = MediaQuery.of(context).size.width;
+    return baseSize *
+        (width < 600
+            ? 0.9
+            : width < 900
+            ? 0.95
+            : 1.0);
   }
 }
